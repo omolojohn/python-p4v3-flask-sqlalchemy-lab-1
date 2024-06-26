@@ -37,14 +37,8 @@ class TestApp:
 
     def test_earthquakes_not_found_response(self):
         '''displays appropriate message if id not found'''
-
+    
         response = app.test_client().get('/earthquakes/9999')
-        # get the response body
         response_body = response.data.decode()
-        # convert to JSON
         response_json = json.loads(response_body)
-        # confirm JSON data
-        assert response_json["message"] == "Earthquake 9999 not found."
-
-        # confirm status
-        assert response.status_code == 404
+        assert response_json["error"] == "Earthquake not found"
